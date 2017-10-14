@@ -34,13 +34,13 @@ def criptar(chave):
     #criptografando o arquivo corrigido
     #alem disso vamos colocar os dados criptografados
     #em uma forma que caracteres estranhos nao aparecam
-    texto_cifrado = base64.b32encode(aes.encrypt(cryptoSaida))
+    conteudo = base64.b32encode(aes.encrypt(cryptoSaida))
 
     #nesta etapa eh realizado os passos anteriores mas desta vez no titulo
     titulo_novo=base64.b32encode(aes.encrypt(arquivo+'#'*(16-len(arquivo)%16)))
 
     arq_saida = open(titulo_novo,'w')
-    arq_saida.write(texto_cifrado)
+    arq_saida.write(conteudo)
     arq_saida.close()
     return titulo_novo
 
@@ -65,8 +65,8 @@ def decriptar(chave):
     titulo_antigo=titulo_antigo.rstrip('#')
 
     #vamos repetir o processo para o conteudo do arquivo
-    texto_recuperado=aes.decrypt(arq_entrada)
-    texto_recuperado=texto_recuperado.rstrip('#')
+    conteudo_recuperado=aes.decrypt(arq_entrada)
+    conteudo_recuperado=conteudo_recuperado.rstrip('#')
     
     r = True
     novo_titulo = ''
@@ -76,7 +76,7 @@ def decriptar(chave):
         t = titulo_antigo.split('.')
         novo_titulo = t[0] + '_new.' + t[1]
         arq_saida2 = open( novo_titulo ,"w")
-        arq_saida2.write(texto_recuperado)
+        arq_saida2.write(conteudo_recuperado)
     except:
         r = False
     return [r , novo_titulo]   
