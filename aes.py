@@ -49,7 +49,7 @@ def decriptar(chave):
     r = True
     novo_titulo = ''
     
-    try: #TRATAMENTO CASO A CHAVE ESTEJA INCORRETA
+    try: #TRATAMENTO CASO A CHAVE ESTEJA INCORRETA#
         t = titulo_antigo.split('.')
         novo_titulo = t[0] + '_new.' + t[1]
         arq_saida2 = open( novo_titulo ,"w")
